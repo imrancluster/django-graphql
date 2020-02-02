@@ -45,7 +45,7 @@ class Query(ObjectType):
     )
 
     # Testing another pagination using django core pagination
-    allmovies = graphene.Field(MoviePaginatedType, page=graphene.Int())
+    allmovies = graphene.Field(MoviePaginatedType, page=graphene.Int(), limit=graphene.Int())
 
 
     def resolve_actor(self, info, **kwargs):
@@ -89,8 +89,8 @@ class Query(ObjectType):
         return qs
 
     # Now, in your resolver functions, you just query your objects and turn the queryset into the PaginatedType using the helper function:
-    def resolve_allmovies(self, info, page):
-        page_size = 2
+    def resolve_allmovies(self, info, page, limit=2, **kwargs):
+        page_size = limit
         qs = Movie.objects.all()
         return get_paginator(qs, page_size, page, MoviePaginatedType)
 

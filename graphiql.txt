@@ -103,3 +103,19 @@ mutation updateMovie {
     }
   }
 }
+
+
+# get movies with customization page limits
+query getAllMovies {
+    allmovies(page: 1, limit: 3) {
+      page
+      pages
+      hasNext
+      hasPrev
+      objects {
+        id
+        title
+        year
+      }
+    }
+}
