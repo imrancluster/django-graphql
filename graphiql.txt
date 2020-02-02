@@ -1,0 +1,105 @@
+# get all actors
+query getActors {
+  actors {
+    id
+    title:name
+  }
+}
+
+# get signle movie by id
+query getMovie {
+  movie(id: 2) {
+    id
+    title
+    actors {
+      id
+      name
+    }
+  }
+}
+
+# get movie list using basic graphQL paginations
+query getMovieList {
+  movielist {
+    id
+    title
+    year
+  }
+}
+
+
+# get movie list using django core pagination with graphQL
+query getAllMovies {
+    allmovies(page: 1) {
+      page
+      pages
+      hasNext
+      hasPrev
+      objects {
+        id
+        title
+        year
+      }
+    }
+}
+
+# Create actor using graphql mutation
+mutation createActor {
+  createActor(input: {
+    name: "Tom Hanks"
+  }) {
+    ok
+    actor {
+      id
+      name
+    }
+  }
+}
+
+# create movie using graphql mutation
+mutation createMovie {
+  createMovie(input: {
+    title: "Test Movie3",
+    actors: [
+      {
+        id: 3
+      }
+    ]
+    year: 1999
+  }) {
+    ok
+    movie{
+      id
+      title
+      actors {
+        id
+        name
+      }
+      year
+    }
+  }
+}
+
+# update movie using graphql mutation
+mutation updateMovie {
+  updateMovie(id: 2, input: {
+    title: "Cast Away",
+    actors: [
+      {
+        id: 3
+      }
+    ]
+    year: 2000
+  }) {
+    ok
+    movie{
+      id
+      title
+      actors {
+        id
+        name
+      }
+      year
+    }
+  }
+}
